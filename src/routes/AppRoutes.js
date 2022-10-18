@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AddFace from "../views/AddFace";
 import TakeAttendanceFace from "../views/TakeAttendanceFace";
-import TakeAttendanceFace2 from "../views/TakeAttendanceFace2";
+import TakeAttendanceFace2 from "../views/TakeAttendanceFace";
 
 const AppRoutes = () => {
   return (
