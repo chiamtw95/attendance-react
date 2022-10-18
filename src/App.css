@@ -6,10 +6,12 @@
   display: grid;
   grid-template-columns: 2fr 2fr;
   justify-content: space-between;
+  min-height: 480px;
 }
 
 .videoWrapper {
   display: flex;
+  min-height: 480px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
