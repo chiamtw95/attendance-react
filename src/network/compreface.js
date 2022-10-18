@@ -52,11 +52,19 @@ export const recognizeFace = async (file) => {
 /*
 //Face detection endpoint UNTESTED
 */
-export const detectFace = async (file) => {
-  const formData = new FormData();
-  formData.append("file", file);
+export const detectFace = async (formData) => {
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "x-api-key": "79385fad-5a3b-4abb-8b06-ae650e639b95",
+    },
+  };
 
-  const response = await detectionInstance.post("/detection/detect", formData);
+  const response = await detectionInstance.post(
+    "/detection/detect",
+    formData,
+    config
+  );
 
   return response;
 };

@@ -6,6 +6,6 @@ const detectionInstance = axios.create({
 detectionInstance.defaults.headers.common["Content-Type"] =
   "multipart/form-data";
 detectionInstance.defaults.headers.common["x-api-key"] =
-  process.env.REACT_APP_COMPPREFACE_DETECTION_KEY;
+  "79385fad-5a3b-4abb-8b06-ae650e639b95";
 
 export default detectionInstance;
