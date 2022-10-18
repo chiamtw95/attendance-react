@@ -27,3 +27,16 @@ button {
   height: 32px;
   width: fit-content;
 }
+
+.MuiTypography-root {
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiFormControl-root {
+  height: fit-content;
+  display: flex;
+  align-items: center;
+}

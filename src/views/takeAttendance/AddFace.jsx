@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addSubject } from "../network/compreface";
+import { addSubject } from "../../network/compreface";
 
 const AddFace = () => {
   const [subject, setSubject] = useState("");

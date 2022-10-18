@@ -6,7 +6,7 @@ import {
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { io } from "socket.io-client";
-import { isEmptyArray } from "../helpers/array";
+import { isEmptyArray } from "../../helpers/array";
 
 const socket = io("ws://localhost:3000", {
   reconnectionDelayMax: 10000,
@@ -28,7 +28,7 @@ const AttendeesList = (props) => {
 };
 
 const TakeAttendanceFace = (props) => {
-  // need to get session id
+  // need to get session id from props?
   const [sessionId, setSessionId] = useState(
     "e58e7759-357f-4fa3-94fc-685611593ec6"
   );
@@ -77,7 +77,7 @@ const TakeAttendanceFace = (props) => {
         async (blob) => {
           const res = await recognitionService.recognize(blob, { limit: 1 });
           const { result } = res;
-          const { box, subjects } = result[0];
+          const { subjects } = result[0];
 
           subjects &&
             socket.emit("newAttendance", {
