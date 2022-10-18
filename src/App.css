@@ -1,3 +1,21 @@
 .App {
   text-align: center;
 }
+
+.TakeAttendanceFace {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-content: space-between;
+}
+
+.videoWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  height: 32px;
+  width: fit-content;
+}
