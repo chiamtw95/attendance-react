@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import { useCompreFace } from "../effects/useCompreFace";
 import { CompreFace } from "@exadel/compreface-js-sdk";
+import { isEmptyArray } from "../helpers/array";
 
 const socket = io("ws://localhost:3000", {
   reconnectionDelayMax: 10000,
@@ -13,6 +14,12 @@ const socket = io("ws://localhost:3000", {
   //   },
 });
 
+const AttendeesList = (props) =>{
+  const {dataSrc} = props || {};
+    return !isEmptyArray(dataSrc)?  (<>{dataSrc&& dataSrc?.map((element) =>  <div>{element}</div>)}</> ): <div>nothing to see here </div>
+}
+
+
 const TakeAttendanceFace = () => {
   const [attendees, setAttendees] = useState([]);
   const [isTakingAttendance, setIsTakingAttendance] = useState(false);
@@ -20,13 +27,14 @@ const TakeAttendanceFace = () => {
   const canvas1 = useRef(null);
   let stopRef = useRef(0);
   let receivedMediaStream = null;
-  const server = "http://localhost";
-  const port = 8000;
-  const DETECTIONKEY = "79385fad-5a3b-4abb-8b06-ae650e639b95";
-  const RECOGNITIONKEY = `10ca1151-f830-4ce0-ac53-9714c77c3241`;
-  const core = new CompreFace(server, port);
-  const detection_service = core.initFaceDetectionService(DETECTIONKEY);
-  const recognitionService = core.initFaceRecognitionService(RECOGNITIONKEY);
+  // const server = "http://localhost";
+  // const port = 8000;
+  // const DETECTIONKEY = "79385fad-5a3b-4abb-8b06-ae650e639b95";
+  // const RECOGNITIONKEY = `10ca1151-f830-4ce0-ac53-9714c77c3241`;
+  const core = new CompreFace(process.env.REACT_APP_SERVER, process.env.REACT_APP_SERVER_PORT);
+  // const detection_service = core.initFaceDetectionService(DETECTIONKEY);
+  const detection_service = core.initFaceDetectionService(process.env.REACT_APP_DETECTIONKEY);
+  const recognitionService = core.initFaceRecognitionService(process.env.REACT_APP_RECOGNITIONKEY);
 
   useEffect(() => {
     if (isTakingAttendance === true && videoRef && canvas1) {
@@ -87,7 +95,7 @@ const TakeAttendanceFace = () => {
             style={{ display: "none" }}
           ></canvas>
         </div>
-        <div>div for students</div>
+        <div className="attendeesListWrapper">div for students<AttendeesList dataSrc={attendees} /></div>
       </div>
       <button onClick={() => startCam()}>Start taking attendance</button>
       <button red={stopRef} onClick={() => closeCam()}>
