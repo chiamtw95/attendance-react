@@ -2,12 +2,24 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AddFace from "../views/takeAttendance/AddFace";
 import TakeAttendanceFace from "../views/takeAttendance/TakeAttendanceFace";
 import CreateSubject from "../views/subjectsManage/CreateSubject";
+import MainLayout from "../layouts/mainLayout";
+import { Navigate } from "react-router-dom";
+import Authentication from "../views/auth/Authentication";
+import Dashboard from "../views/dashboard";
 
-const AppRoutes = () => {
+const AppRoutes = (isActive) => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<AddFace />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route path="/login" element={<Authentication />} />
+          <Route
+            path="/"
+            element={isActive ? <Dashboard /> : <Navigate to="/login" />}
+          />
+        </Route>
+
+        <Route path="/addSubject" element={<AddFace />} />
         <Route path="/face" element={<TakeAttendanceFace />} />
         <Route path="/subject" element={<CreateSubject />} />
       </Routes>
@@ -24,7 +36,7 @@ REGISTER
 
 /* TODO LECTURER POV
   SUBJECT ADMIN PAGE
-    CREATE SUB
+    CREATE SUB => 
     ADD STUDENTS
     REMOVE STUDENTS
   

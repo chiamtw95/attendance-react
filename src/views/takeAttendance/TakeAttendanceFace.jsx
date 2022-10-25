@@ -8,7 +8,7 @@ import "react-notifications/lib/notifications.css";
 import { io } from "socket.io-client";
 import { isEmptyArray } from "../../helpers/array";
 
-const socket = io("ws://localhost:3000", {
+const socket = io(`ws://${process.env.REACT_APP_IP}:3000`, {
   reconnectionDelayMax: 10000,
 });
 
@@ -97,9 +97,9 @@ const TakeAttendanceFace = (props) => {
 
   const startCam = async () => {
     stopRef.current = 0;
-    await navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
+    await navigator?.mediaDevices
+      ?.getUserMedia({ video: true })
+      ?.then((stream) => {
         videoRef.current.srcObject = stream;
       })
       .catch((err) => console.error("startCam error", err));
