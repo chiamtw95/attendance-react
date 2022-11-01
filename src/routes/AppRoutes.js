@@ -98,7 +98,6 @@ const AppRoutes = () => {
             element={
               <ProtectedRoute restrictedTo="ADMIN">
                 <TakeAttendance />
-                kk{" "}
               </ProtectedRoute>
             }
           />
