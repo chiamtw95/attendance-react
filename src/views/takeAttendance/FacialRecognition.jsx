@@ -5,15 +5,13 @@ import {
   NotificationManager,
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
+import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import { isEmptyArray } from "../../helpers/array";
 
-const socket = io(`ws://${process.env.REACT_APP_IP}:3000`, {
-  reconnectionDelayMax: 10000,
-});
-
 const AttendeesList = (props) => {
   const { dataSrc } = props || {};
+
   return !isEmptyArray(dataSrc) ? (
     <>
       <h1>Attendees List</h1>
@@ -23,22 +21,28 @@ const AttendeesList = (props) => {
         ))}
     </>
   ) : (
-    <div>nothing to see here </div>
+    <div>
+      <h2>No Attendees yet</h2>
+    </div>
   );
 };
 
-const TakeAttendanceFace = (props) => {
+const FacialRecognition = (props) => {
+  const socket = io(`ws://${process.env.REACT_APP_SERVER_IP}:3000`, {
+    reconnectionDelayMax: 10000,
+  });
+  const { sessionId } = props;
   // need to get session id from props?
-  const [sessionId, setSessionId] = useState(
-    "e58e7759-357f-4fa3-94fc-685611593ec6"
-  );
+  // const [sessionId, setSessionId] = useState(
+  // "e58e7759-357f-4fa3-94fc-685611593ec6"
+  // );
   const [attendees, setAttendees] = useState([]);
   const videoRef = useRef(null);
   const canvas1 = useRef(null);
   let stopRef = useRef(0);
 
   const core = new CompreFace(
-    process.env.REACT_APP_SERVER,
+    `http://${process.env.REACT_APP_SERVER_IP}`,
     process.env.REACT_APP_SERVER_PORT
   );
   const recognitionService = core.initFaceRecognitionService(
@@ -58,10 +62,13 @@ const TakeAttendanceFace = (props) => {
         const prevLength = prev?.length;
         if (prevLength === data?.length) return prev;
         else if (prevLength < data?.length) {
+          const currAttendee = data.filter((x) => !prev.includes(x));
           NotificationManager.success(
-            `${data.slice(-1)[0]}`,
+            `${currAttendee}`,
             "Successfully checked in"
           );
+          return data;
+        } else {
           return data;
         }
       });
@@ -139,4 +146,4 @@ const TakeAttendanceFace = (props) => {
   );
 };
 
-export default TakeAttendanceFace;
+export default FacialRecognition;

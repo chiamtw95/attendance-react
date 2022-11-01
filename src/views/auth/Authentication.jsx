@@ -1,13 +1,14 @@
 import { Button } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import BasicTextInput from "../../components/BasicTextInput";
-import DropDownList from "../../components/DropDownList";
+import { ACESS_TOKEN } from "../../constant/token";
 
-const Authentication = () => {
+const Authentication = (props) => {
+  const { setisActive } = props;
   const navigate = useNavigate();
 
   const validationSchema = yup.object({
@@ -24,13 +25,12 @@ const Authentication = () => {
     validateOnBlur: true,
     onSubmit: async (values) => {
       const res = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}:3000/auth/signin`,
+        `http://${process.env.REACT_APP_SERVER_IP}:3000/auth/signin`,
         values
       );
-      if (res.data.access_token) {
-        localStorage.setItem("access_token", res.data.access_token);
-        navigate("/dashboard");
-      }
+      localStorage.setItem(ACESS_TOKEN, res.data.access_token);
+      setisActive(true);
+      navigate("/");
     },
   });
 

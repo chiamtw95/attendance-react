@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const detectionInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_BASE_URL}:8000/api/v1`,
+  baseURL: `http://${process.env.REACT_APP_SERVER_IP}:8000/api/v1`,
 });
 detectionInstance.defaults.headers.common["Content-Type"] =
   "multipart/form-data";

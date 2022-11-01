@@ -1,19 +1,25 @@
 import { Button } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
 import * as yup from "yup";
+import React, { useEffect, useState } from "react";
 import BasicTextInput from "../../components/BasicTextInput";
 import DropDownList from "../../components/DropDownList";
+import { useNavigate } from "react-router-dom";
+import ArrowBack from "../../components/ArrowBack";
 
 const CreateSubject = () => {
   const [lecturer, setLecturers] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}:3000/lecturer`).then((res) => {
-      const r = res.data.map((lec) => lec.name);
-      setLecturers(r);
-    });
+    axios
+      .get(`http://${process.env.REACT_APP_SERVER_IP}:3000/lecturer`)
+      .then((res) => {
+        const r = res.data.map((lec) => lec.name);
+        setLecturers(r);
+      });
   }, []);
 
   const validationSchema = yup.object({
@@ -30,17 +36,27 @@ const CreateSubject = () => {
     validationSchema,
     validateOnBlur: true,
     onSubmit: async (values) => {
-      console.log(values);
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}:3000/subject`, values)
-        .then((res) => {
-          console.log(res);
-        });
+      try {
+        const res = await axios.post(
+          `http://${process.env.REACT_APP_SERVER_IP}:3000/subject`,
+          values
+        );
+        if (res?.status === 201) {
+          formik.resetForm();
+          setError(null);
+        }
+      } catch (error) {
+        console.log("hahah;", error);
+        if (error.response) {
+          setError(error.response.data.message);
+          console.error(error.response.status);
+        }
+      }
     },
   });
-
   return (
     <div>
+      <ArrowBack navigateTo="/subjects" />
       <h1>Create Subject</h1>
       <BasicTextInput
         label={"Subject Name"}
@@ -68,6 +84,7 @@ const CreateSubject = () => {
         formik={formik}
         errorMsg="REQUIRED"
       />
+      {error && <div style={{ color: "red" }}>{error}</div>}
       <Button
         variant="contained"
         size="large"

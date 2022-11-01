@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addSubject } from "../../network/compreface";
+import jwt_decode from "jwt-decode";
+import { Button } from "@mui/material";
 
 const AddFace = () => {
   const [subject, setSubject] = useState("");
   const [imageFile, setimageFile] = useState({});
+  const token = localStorage.getItem("access_token");
+
+  useEffect(() => {
+    const res = jwt_decode(token);
+    setSubject(res.name);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,7 +19,7 @@ const AddFace = () => {
     formData.append("file", imageFile);
     formData.append("subject", subject);
     const res = await addSubject(formData);
-    console.log(res);
+    // TODO add notidication banner upload succesffull
   };
 
   return (
@@ -22,9 +30,9 @@ const AddFace = () => {
         <input
           type="text"
           id="subject"
+          disabled
           name="subject"
           value={subject}
-          onChange={(e) => setSubject(e.target.value)}
         />
         <br />
         <input
@@ -35,7 +43,9 @@ const AddFace = () => {
           }}
         />
         <br />
-        <input type="submit" />
+        <Button variant="contained" onClick={handleSubmit}>
+          Submit
+        </Button>
       </form>
     </>
   );

@@ -8,7 +8,15 @@ import {
 import { Fragment } from "react";
 
 const DropDownList = (props) => {
-  const { title, data, formik, label, errorMsg, placeholder } = props;
+  const {
+    title,
+    data,
+    formik,
+    label,
+    errorMsg,
+    placeholder,
+    sxOverride,
+  } = props;
 
   const renderOptions = () => {
     return (
@@ -31,6 +39,7 @@ const DropDownList = (props) => {
         alignItems: "center",
         justifyContent: "center",
         verticalAlign: "center",
+        ...sxOverride,
       }}
     >
       <Typography sx={{ paddingRight: "8px" }} variant="h6">
