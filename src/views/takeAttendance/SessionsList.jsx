@@ -36,6 +36,15 @@ const SessionsList = () => {
         setDetails(res.data);
       });
   }, []);
+
+  const createNewSession = () => {
+    axios.post(
+      `http://${process.env.REACT_APP_SERVER_IP}:3000/subject/details`,
+      {
+        params: { id },
+      }
+    );
+  };
   return (
     <div>
       <h1>
@@ -48,7 +57,12 @@ const SessionsList = () => {
           <TableRow>
             <TableCell align="right">Session ID</TableCell>
             <TableCell align="right">Date</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="right">
+              <Button sx={{ lineHeight: 0 }} onClick={() => createNewSession()}>
+                <AddIcon />
+                <span>New Session</span>
+              </Button>
+            </TableCell>
           </TableRow>
         </TableHead>
 
