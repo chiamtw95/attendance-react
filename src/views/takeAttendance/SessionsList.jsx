@@ -12,6 +12,7 @@ import {
 import jwtDecode from "jwt-decode";
 import { useNavigate, useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import { ACESS_TOKEN } from "../../constant/token";
 
 const SessionsList = () => {
   const [details, setDetails] = useState({});
@@ -19,6 +20,7 @@ const SessionsList = () => {
   const [subjectCode, setsubjectCode] = useState("");
   const [sessions, setsessions] = useState([]);
   const { id } = useParams();
+  const token = localStorage.getItem(ACESS_TOKEN);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,13 +39,15 @@ const SessionsList = () => {
       });
   }, []);
 
-  const createNewSession = () => {
-    axios.post(
-      `http://${process.env.REACT_APP_SERVER_IP}:3000/subject/details`,
+  const createNewSession = async () => {
+    const res = await axios.post(
+      `http://${process.env.REACT_APP_SERVER_IP}:3000/subject/session/create`,
       {
-        params: { id },
+        subjectId: id,
+        lecturerId: jwtDecode(token).sub,
       }
     );
+    if (res?.data?.id) navigate(`/attendance/takeAttendance/${res.data.id}`);
   };
   return (
     <div>

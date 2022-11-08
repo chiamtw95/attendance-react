@@ -16,39 +16,76 @@ import TakeAttendance from "../views/takeAttendance/TakeAttendance";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { useAuthVerify } from "./useAuthVerify";
 
-// const AttendanceRoutes = () => {
-//   return (
-//     <Routes>
-//       <Route
-//         path="/"
-//         element={
-//           <ProtectedRoute restrictedTo="ADMIN">
-//             <SubjectList />
-//           </ProtectedRoute>
-//         }
-//       />
-//       <Route
-//         path="/sessions/:id"
-//         element={
-//           <ProtectedRoute restrictedTo="ADMIN">
-//             <SessionsList />
-//           </ProtectedRoute>
-//         }
-//       />
-//       <Route
-//         path="/takeAttendance/:sessionId"
-//         element={
-//           <ProtectedRoute restrictedTo="ADMIN">
-//             <TakeAttendance />
-//           </ProtectedRoute>
-//         }
-//       />
-//     </Routes>
-//   );
-// };
+const AttendanceRoutes = () => {
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute restrictedTo="ADMIN">
+            <SubjectList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/sessions/:id"
+        element={
+          <ProtectedRoute restrictedTo="ADMIN">
+            <SessionsList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/takeAttendance/:sessionId"
+        element={
+          <ProtectedRoute restrictedTo="ADMIN">
+            <TakeAttendance />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  );
+};
+
+const SubjectRoutes = () => {
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <>
+            <ProtectedRoute restrictedTo="ADMIN">
+              <AllSubjectLecturer />
+            </ProtectedRoute>
+            <ProtectedRoute restrictedTo="USER">
+              <AllSubjectsStudent />
+            </ProtectedRoute>
+          </>
+        }
+      />
+      <Route
+        path="subject/:id"
+        element={
+          <ProtectedRoute restrictedTo="ADMIN">
+            <SubjectDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="subject/create"
+        element={
+          <ProtectedRoute restrictedTo="ADMIN">
+            <CreateSubject />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  );
+};
+
 const AppRoutes = () => {
   const [isActive, setisActive] = useState(false);
-  const useAuth = useAuthVerify();
+  useAuthVerify();
 
   const checkToken = () => {
     const token = localStorage.getItem(ACESS_TOKEN);
@@ -69,67 +106,9 @@ const AppRoutes = () => {
             )
           }
         >
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/attendance"
-            element={
-              <ProtectedRoute restrictedTo="ADMIN">
-                <SubjectList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/attendance/sessions/:id"
-            element={
-              <ProtectedRoute restrictedTo="ADMIN">
-                <SessionsList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/attendance/takeAttendance/:sessionId"
-            element={
-              <ProtectedRoute restrictedTo="ADMIN">
-                <TakeAttendance />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="subjects"
-            element={
-              <>
-                <ProtectedRoute restrictedTo="ADMIN">
-                  <AllSubjectLecturer />
-                </ProtectedRoute>
-                <ProtectedRoute restrictedTo="USER">
-                  <AllSubjectsStudent />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="subject/:id"
-            element={
-              <ProtectedRoute restrictedTo="ADMIN">
-                <SubjectDetails />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="subject/create"
-            element={
-              <ProtectedRoute restrictedTo="ADMIN">
-                <CreateSubject />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/attendance/*" element={<AttendanceRoutes />} />
+          <Route path="subjects/*" element={<SubjectRoutes />} />
           <Route path="/reports" element={<></>} />
           <Route path="/account" element={<AddFace />} />
         </Route>
@@ -154,14 +133,13 @@ export default AppRoutes;
   SUBJECT ADMIN PAGE => IN PROGRESS
     CREATE SUB => DONE
     FETCH LECTURER SUBS => DONE 
-    MANAGE SUBS => TODO
-      ADD/REMOVE STUDENTS
-      EDIT SUBS,
-      CHANGE LECTURER
+    MANAGE SUBS => DONE
+      ADD/REMOVE STUDENTS DONE
+      CHANGE LECTURER (??)
   
   TAKE ATTENDANCE (2/3)
     FR PAGE  => DONE
-    INDEX PAGE? PICK A SUB => SELECT MODE (code or fr), GET SESSION ID => TODO
+    INDEX PAGE? PICK A SUB => SELECT MODE (code or fr), GET SESSION ID => DONE
     ICHECKIN CODE PAGE => TODO
  */
 
@@ -180,7 +158,7 @@ export default AppRoutes;
   
     ENROLLMENT PAGE => UI DONE, PENDING API INTEGRATION (basically a query to connnect student to subjects db)
 
-  [UI] INDEX PAGE? PICK A SUB => SELECT MODE (code or fr), GET SESSION ID => TODO
+  [UI] INDEX PAGE? PICK A SUB => SELECT MODE (code or fr), GET SESSION ID => DONE-ish?
   
   ICHECKIN CODE PAGE => TODO
   ICHECKINCODE => page for students, lecturer, needs backend api

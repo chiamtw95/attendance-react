@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { addSubject } from "../../network/compreface";
 import jwt_decode from "jwt-decode";
 import { Button } from "@mui/material";
+import { withProtectedRoute } from "../../routes/ProtectedRoute";
 
 const AddFace = () => {
   const [subject, setSubject] = useState("");
@@ -50,4 +51,4 @@ const AddFace = () => {
     </>
   );
 };
-export default AddFace;
+export default withProtectedRoute(AddFace);
