@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import BasicTextInput from "../../components/BasicTextInput";
@@ -10,6 +10,7 @@ import { ACESS_TOKEN } from "../../constant/token";
 const Authentication = (props) => {
   const { setisActive } = props;
   const navigate = useNavigate();
+  const [error, seterror] = useState("");
 
   const validationSchema = yup.object({
     email: yup.string().required("REQUIRED"),
@@ -24,13 +25,18 @@ const Authentication = (props) => {
     validationSchema,
     validateOnBlur: true,
     onSubmit: async (values) => {
-      const res = await axios.post(
-        `http://${process.env.REACT_APP_SERVER_IP}:3000/auth/signin`,
-        values
-      );
-      localStorage.setItem(ACESS_TOKEN, res.data.access_token);
-      setisActive(true);
-      navigate("/");
+      try {
+        const res = await axios.post(
+          `http://${process.env.REACT_APP_SERVER_IP}:3000/auth/signin`,
+          values
+        );
+        localStorage.setItem(ACESS_TOKEN, res.data.access_token);
+        setisActive(true);
+        navigate("/");
+      } catch (error) {
+        console.error(error);
+        seterror(error.response.data.message);
+      }
     },
   });
 
@@ -62,8 +68,11 @@ const Authentication = (props) => {
           onChange={(e) => {
             formik.setFieldValue("password", e.target.value);
           }}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.errors.password}
+          error={
+            (formik.touched.password && Boolean(formik.errors.password)) ||
+            error
+          }
+          helperText={formik.errors.password || error}
         />
       </div>
       <Button

@@ -13,6 +13,7 @@ import jwtDecode from "jwt-decode";
 import { useNavigate, useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { ACESS_TOKEN } from "../../constant/token";
+import ArrowBack from "../../components/ArrowBack";
 
 const SessionsList = () => {
   const [details, setDetails] = useState({});
@@ -24,8 +25,6 @@ const SessionsList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    //FETCH ALL SESSIONS FOR THIS SUB,
-    // CREATE NEW >  face/code
     axios
       .get(`http://${process.env.REACT_APP_SERVER_IP}:3000/subject/details`, {
         params: { id },
@@ -41,7 +40,7 @@ const SessionsList = () => {
 
   const createNewSession = async () => {
     const res = await axios.post(
-      `http://${process.env.REACT_APP_SERVER_IP}:3000/subject/session/create`,
+      `http://${process.env.REACT_APP_SERVER_IP}:3000/session/create`,
       {
         subjectId: id,
         lecturerId: jwtDecode(token).sub,
@@ -51,6 +50,7 @@ const SessionsList = () => {
   };
   return (
     <div>
+      <ArrowBack navigateTo="/attendance" />
       <h1>
         {subjectCode}
         <br />
@@ -76,6 +76,7 @@ const SessionsList = () => {
 
             return (
               <TableRow
+                hover={true}
                 key={x.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >

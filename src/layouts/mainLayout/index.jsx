@@ -13,10 +13,13 @@ import {
   AppBar,
   IconButton,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { sideMenuItems } from "../../constant/sideMenu";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { ACESS_TOKEN } from "../../constant/token";
 const drawerWidth = 240;
 
 const DrawerContent = () => {
@@ -44,7 +47,7 @@ const DrawerContent = () => {
 };
 
 const MainLayout = (props) => {
-  const { window } = props;
+  const { window, setisActive } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -71,10 +74,28 @@ const MainLayout = (props) => {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
-          ></IconButton>
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6" noWrap component="div">
             Attendance App
           </Typography>
+
+          <IconButton
+            children={<LogoutIcon />}
+            style={{
+              color: "#FFFFFF",
+              position: "absolute",
+              right: 16,
+              top: 24,
+              cursor: "pointer",
+              "&:hover": { opacity: 0.8 },
+            }}
+            onClick={() => {
+              localStorage.removeItem(ACESS_TOKEN);
+              setisActive(false);
+            }}
+          />
         </Toolbar>
       </AppBar>
       <Box

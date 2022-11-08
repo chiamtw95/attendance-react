@@ -1,6 +1,15 @@
 import { CompreFace } from "@exadel/compreface-js-sdk";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  IconButton,
+  Button,
+} from "@mui/material";
+import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
@@ -9,21 +18,47 @@ import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import { isEmptyArray } from "../../helpers/array";
 
+// const AttendeesList = (props) => {
+//   const { dataSrc } = props || {};
+
+//   return !isEmptyArray(dataSrc) ? (
+//     <>
+//       <h1>Attendees List</h1>
+//       {dataSrc &&
+//         dataSrc?.map((element, index) => (
+//           <div key={`${element}-${index}`}>{element}</div>
+//         ))}
+//     </>
+//   ) : (
+//     <div>
+//       <h2>No Attendees yet</h2>
+//     </div>
+//   );
+// };
+
 const AttendeesList = (props) => {
   const { dataSrc } = props || {};
 
-  return !isEmptyArray(dataSrc) ? (
-    <>
-      <h1>Attendees List</h1>
-      {dataSrc &&
-        dataSrc?.map((element, index) => (
-          <div key={`${element}-${index}`}>{element}</div>
-        ))}
-    </>
-  ) : (
-    <div>
-      <h2>No Attendees yet</h2>
-    </div>
+  return (
+    <Table aria-label="simple table">
+      <TableHead>
+        <TableRow>
+          <TableCell align="center">
+            <h2>Attendees</h2>
+          </TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          {dataSrc &&
+            dataSrc?.map((element, index) => (
+              <TableCell key={`${element}-${index}`} align="center">
+                {element}
+              </TableCell>
+            ))}
+        </TableRow>
+      </TableBody>
+    </Table>
   );
 };
 

@@ -87,7 +87,7 @@ const SubjectDetails = () => {
       <ArrowBack navigateTo="/subjects" />
       <h1>Subject Details</h1>
       <h1>
-        SubjectName: {subcode} {subname}
+        {subcode} {subname}
       </h1>
       <h1>Lecturer: {lect}</h1>
 
@@ -111,6 +111,7 @@ const SubjectDetails = () => {
             {students?.map((x, index) => {
               return (
                 <TableRow
+                  hover={true}
                   key={x?.name}
                   sx={{
                     "&:last-child td, &:last-child th": { border: "1px" },

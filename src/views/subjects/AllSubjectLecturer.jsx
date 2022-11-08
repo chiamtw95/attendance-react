@@ -40,7 +40,12 @@ const AllSubjectLecturer = () => {
           <TableRow>
             <TableCell align="right">Subject Code</TableCell>
             <TableCell align="right">Subject Name</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="right">
+              <IconButton
+                onClick={() => navigate("/subjects/create")}
+                children={<AddIcon />}
+              />
+            </TableCell>
           </TableRow>
         </TableHead>
 
@@ -48,6 +53,7 @@ const AllSubjectLecturer = () => {
           {subjects.map((x, index) => {
             return (
               <TableRow
+                hover={true}
                 key={x.subjectName}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
@@ -56,7 +62,7 @@ const AllSubjectLecturer = () => {
                 <TableCell align="right">
                   <Button
                     variant="contained"
-                    onClick={() => navigate(`/subject/${x.id}`)}
+                    onClick={() => navigate(`/subjects/${x.id}`)}
                   >
                     Manage
                   </Button>
@@ -64,16 +70,6 @@ const AllSubjectLecturer = () => {
               </TableRow>
             );
           })}
-          <TableRow>
-            <TableCell />
-            <TableCell />
-            <TableCell align="right">
-              <IconButton
-                onClick={() => navigate("/subject/create")}
-                children={<AddIcon />}
-              />
-            </TableCell>
-          </TableRow>
         </TableBody>
       </Table>
     </div>

@@ -34,7 +34,7 @@ const SubjectList = () => {
   }, []);
   return (
     <div>
-      <h1>All Subjects</h1>
+      <h1>Mark Attendance</h1>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -48,6 +48,7 @@ const SubjectList = () => {
           {subjects.map((x, index) => {
             return (
               <TableRow
+                hover={true}
                 key={x.subjectName}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >

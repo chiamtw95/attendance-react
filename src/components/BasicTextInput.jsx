@@ -17,7 +17,7 @@ const BasicTextInput = (props) => {
       sx={{
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "center",
         verticalAlign: "center",
       }}
@@ -29,11 +29,12 @@ const BasicTextInput = (props) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          // alignItems: "center",
         }}
       >
         <TextField
           {...rest}
+          size="small"
           variant="outlined"
           value={value}
           onChange={onChange}

@@ -5,12 +5,15 @@ import { ACESS_TOKEN } from "../constant/token";
 import MainLayout from "../layouts/mainLayout";
 import Authentication from "../views/auth/Authentication";
 import Dashboard from "../views/dashboard";
+import ProfilePage from "../views/profile";
 import AddFace from "../views/profile/AddFace";
+import ChangePassword from "../views/profile/ChangePassword";
 import AllSubjectLecturer from "../views/subjects/AllSubjectLecturer";
 import AllSubjectsStudent from "../views/subjects/AllSubjectsStudent";
 import CreateSubject from "../views/subjects/CreateSubject";
 import SubjectDetails from "../views/subjects/SubjectDetails";
 import SessionsList from "../views/takeAttendance/SessionsList";
+import StudentCheckInPage from "../views/takeAttendance/StudentCheckInPage";
 import SubjectList from "../views/takeAttendance/SubjectsList";
 import TakeAttendance from "../views/takeAttendance/TakeAttendance";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -22,9 +25,14 @@ const AttendanceRoutes = () => {
       <Route
         path="/"
         element={
-          <ProtectedRoute restrictedTo="ADMIN">
-            <SubjectList />
-          </ProtectedRoute>
+          <>
+            <ProtectedRoute restrictedTo="ADMIN">
+              <SubjectList />
+            </ProtectedRoute>
+            <ProtectedRoute restrictedTo="USER">
+              <StudentCheckInPage />
+            </ProtectedRoute>
+          </>
         }
       />
       <Route
@@ -64,15 +72,16 @@ const SubjectRoutes = () => {
         }
       />
       <Route
-        path="subject/:id"
+        path="/:id"
         element={
           <ProtectedRoute restrictedTo="ADMIN">
             <SubjectDetails />
           </ProtectedRoute>
         }
       />
+
       <Route
-        path="subject/create"
+        path="/create"
         element={
           <ProtectedRoute restrictedTo="ADMIN">
             <CreateSubject />
@@ -100,7 +109,7 @@ const AppRoutes = () => {
           path="/"
           element={
             isActive || checkToken() ? (
-              <MainLayout />
+              <MainLayout setisActive={setisActive} />
             ) : (
               <Navigate to={"/login"} />
             )
@@ -110,7 +119,7 @@ const AppRoutes = () => {
           <Route path="/attendance/*" element={<AttendanceRoutes />} />
           <Route path="subjects/*" element={<SubjectRoutes />} />
           <Route path="/reports" element={<></>} />
-          <Route path="/account" element={<AddFace />} />
+          <Route path="/account" element={<ProfilePage />} />
         </Route>
 
         <Route

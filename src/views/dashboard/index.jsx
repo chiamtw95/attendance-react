@@ -1,10 +1,11 @@
 import React from "react";
+import { withProtectedRoute } from "../../routes/ProtectedRoute";
 
 const index = () => {
   return <div>index</div>;
 };
 
-export default index;
+export default withProtectedRoute(index);
 
 /*
 Student 

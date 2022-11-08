@@ -8,10 +8,16 @@ import {
   TableBody,
   Button,
 } from "@mui/material";
+import { ACESS_TOKEN } from "../../constant/token";
+import jwtDecode from "jwt-decode";
+import { ContactSupport } from "@mui/icons-material";
 const AllSubjectsStudent = () => {
   const [subjects, setSubjects] = useState([]);
-  useEffect(() => {
-    // SHOULD FETCH ENROLLED SUBS ONLY
+  const decodedToken = jwtDecode(localStorage.getItem(ACESS_TOKEN));
+  const studentId = decodedToken.sub;
+  const studentName = decodedToken.name;
+
+  const fetchSubjects = () => {
     axios
       .get(`http://${process.env.REACT_APP_SERVER_IP}:3000/subject`)
       .then((res) => {
@@ -20,7 +26,26 @@ const AllSubjectsStudent = () => {
         });
         setSubjects(r);
       });
+  };
+
+  useEffect(() => {
+    fetchSubjects();
   }, []);
+
+  const isCurrentlyEnrolled = (data) => {
+    console.log("data", data, studentName);
+    return data.name === studentName;
+  };
+
+  const handleEnroll = async (subjectId) => {
+    const params = { subjectId, studentId };
+    const res = await axios.patch(
+      `http://${process.env.REACT_APP_SERVER_IP}:3000/subject`,
+      params
+    );
+    console.log(res);
+    fetchSubjects();
+  };
   return (
     <div>
       <h1>All Subjects Student</h1>
@@ -35,15 +60,23 @@ const AllSubjectsStudent = () => {
 
         <TableBody>
           {subjects.map((x, index) => {
+            const isEnrolled = x.student.find(isCurrentlyEnrolled);
             return (
               <TableRow
+                hover={true}
                 key={x.subjectName}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell align="right">{x.subjectCode}</TableCell>
                 <TableCell align="right">{x.subjectName}</TableCell>
                 <TableCell align="right">
-                  <Button variant="contained">Enroll</Button>
+                  <Button
+                    disabled={isEnrolled}
+                    variant="contained"
+                    onClick={() => handleEnroll(x.id)}
+                  >
+                    {isEnrolled ? "Enrolled" : "Enroll"}
+                  </Button>
                 </TableCell>
               </TableRow>
             );
