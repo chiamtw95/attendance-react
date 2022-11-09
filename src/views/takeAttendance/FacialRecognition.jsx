@@ -51,6 +51,9 @@ const FacialRecognition = (props) => {
   });
   socket.on("connect", () => {
     socket.emit("joinRoom", { roomName: sessionId });
+    socket.emit("findAllAttendance", {
+      sessionId: sessionId,
+    });
   });
 
   const [attendees, setAttendees] = useState([]);
@@ -67,11 +70,8 @@ const FacialRecognition = (props) => {
   );
 
   useEffect(() => {
-    socket.emit("findAllAttendance", {
-      sessionId: sessionId,
-    });
-
     socket.on("findAllAttendance", (data) => {
+      console.log("findall", data);
       setAttendees(data);
     });
     socket.on("newAttendance", (data) => {
