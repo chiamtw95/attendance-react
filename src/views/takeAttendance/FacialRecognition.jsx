@@ -68,11 +68,16 @@ const FacialRecognition = (props) => {
   const recognitionService = core.initFaceRecognitionService(
     process.env.REACT_APP_COMPPREFACE_RECOGNITION_KEY
   );
-
   useEffect(() => {
     socket.on("findAllAttendance", (data) => {
       console.log("findall", data);
       setAttendees(data);
+    });
+    socket.on("error", (data) => {
+      data?.errorMessage &&
+        NotificationManager.warning(data?.errorMessage, "", 2000, () => {});
+      data?.infoMessage &&
+        NotificationManager.info(data?.infoMessage, "", 2000, () => {});
     });
     socket.on("newAttendance", (data) => {
       console.log("newattendance", data);
@@ -83,7 +88,10 @@ const FacialRecognition = (props) => {
           const currAttendee = data.filter((x) => !prev.includes(x));
           NotificationManager.success(
             `${currAttendee}`,
-            "Successfully checked in"
+            "Successfully checked in",
+            2000,
+            () => {},
+            true
           );
           return data;
         } else {
@@ -130,7 +138,7 @@ const FacialRecognition = (props) => {
         videoRef.current.srcObject = stream;
       })
       .catch((err) => console.error("startCam error", err));
-    setTimeout(fetchLoop, 3000);
+    setTimeout(fetchLoop, 5000);
   };
 
   const closeCam = async () => {
