@@ -18,24 +18,6 @@ import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import { isEmptyArray } from "../../helpers/array";
 
-// const AttendeesList = (props) => {
-//   const { dataSrc } = props || {};
-
-//   return !isEmptyArray(dataSrc) ? (
-//     <>
-//       <h1>Attendees List</h1>
-//       {dataSrc &&
-//         dataSrc?.map((element, index) => (
-//           <div key={`${element}-${index}`}>{element}</div>
-//         ))}
-//     </>
-//   ) : (
-//     <div>
-//       <h2>No Attendees yet</h2>
-//     </div>
-//   );
-// };
-
 const AttendeesList = (props) => {
   const { dataSrc } = props || {};
 
@@ -67,10 +49,6 @@ const FacialRecognition = (props) => {
     reconnectionDelayMax: 10000,
   });
   const { sessionId } = props;
-  // need to get session id from props?
-  // const [sessionId, setSessionId] = useState(
-  // "e58e7759-357f-4fa3-94fc-685611593ec6"
-  // );
   const [attendees, setAttendees] = useState([]);
   const videoRef = useRef(null);
   const canvas1 = useRef(null);
@@ -93,6 +71,7 @@ const FacialRecognition = (props) => {
       setAttendees(data);
     });
     socket.on("newAttendance", (data) => {
+      console.log("newattendance", data);
       setAttendees((prev) => {
         const prevLength = prev?.length;
         if (prevLength === data?.length) return prev;
@@ -120,11 +99,13 @@ const FacialRecognition = (props) => {
           const res = await recognitionService.recognize(blob, { limit: 1 });
           const { result } = res;
           const { subjects } = result[0];
+          const { subject, similarity } = subjects[0];
 
-          subjects &&
+          subject &&
+            similarity > 0.7 &&
             socket.emit("newAttendance", {
               sessionId: sessionId,
-              studentName: subjects[0]?.subject,
+              studentName: subject,
             });
         },
         "image/jpeg",

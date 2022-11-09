@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { ACESS_TOKEN } from "../constant/token";
 import MainLayout from "../layouts/mainLayout";
 import Authentication from "../views/auth/Authentication";
+import Register from "../views/auth/Register";
 import Dashboard from "../views/dashboard";
 import ProfilePage from "../views/profile";
 import AddFace from "../views/profile/AddFace";
@@ -126,6 +127,8 @@ const AppRoutes = () => {
           path="/login"
           element={<Authentication setisActive={setisActive} />}
         />
+        <Route path="/register" element={<Register />} />
+        <Route path="/register/admin" element={<Register as={"ADMIN"} />} />
       </Routes>
     </>
   );
