@@ -45,10 +45,14 @@ const AttendeesList = (props) => {
 };
 
 const FacialRecognition = (props) => {
+  const { sessionId } = props;
   const socket = io(`ws://${process.env.REACT_APP_SERVER_IP}:3000`, {
     reconnectionDelayMax: 10000,
   });
-  const { sessionId } = props;
+  socket.on("connect", () => {
+    socket.emit("joinRoom", { roomName: sessionId });
+  });
+
   const [attendees, setAttendees] = useState([]);
   const videoRef = useRef(null);
   const canvas1 = useRef(null);
