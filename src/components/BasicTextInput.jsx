@@ -19,17 +19,8 @@ const BasicTextInput = (props) => {
   } = props || {};
 
   return (
-    // <Box
-    //   sx={{
-    //     display: "flex",
-    //     flexDirection: "row",
-    //     alignItems: "flex-start",
-    //     justifyContent: "center",
-    //     verticalAlign: "center",
-    //   }}
-    // >
-    <Grid container spacing={5}>
-      <Grid item xs={2}>
+    <Grid container spacing={1}>
+      <Grid item xs>
         <span
           style={{
             fontSize: "12px",
@@ -40,12 +31,13 @@ const BasicTextInput = (props) => {
           {label}
         </span>
       </Grid>
-      <Grid item xs={10}>
+      <Grid item>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            width: "100%",
           }}
         >
           <TextField
@@ -64,7 +56,6 @@ const BasicTextInput = (props) => {
         </Box>
       </Grid>
     </Grid>
-    // </Box>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -56,41 +56,57 @@ const CreateSubject = () => {
   return (
     <div>
       <ArrowBack navigateTo="/subjects" />
-      <h1>Create Subject</h1>
-      <BasicTextInput
-        label={"Subject Name"}
-        value={formik.values.subjectName}
-        onChange={(e) => {
-          formik.setFieldValue("subjectName", e.target.value);
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          flexDirection: "column",
+          margin: "auto",
+          maxWidth: "fit-content",
         }}
-        error={formik.touched.subjectName && Boolean(formik.errors.subjectName)}
-        helperText={formik.errors.subjectName}
-      />
-      <BasicTextInput
-        label={"Subject Code"}
-        value={formik.values.subjectCode}
-        onChange={(e) => {
-          formik.setFieldValue("subjectCode", e.target.value);
-        }}
-        error={formik.touched.subjectCode && Boolean(formik.errors.subjectCode)}
-        helperText={formik.errors.subjectCode}
-      />
-      <DropDownList
-        title={"Select lecturer"}
-        placeholder={"Select lecturer"}
-        data={lecturer}
-        label="lecturerName"
-        formik={formik}
-        errorMsg="REQUIRED"
-      />
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      <Button
-        variant="contained"
-        size="large"
-        onClick={() => formik.handleSubmit()}
       >
-        Submit
-      </Button>
+        <h1>Create Subject</h1>
+        <BasicTextInput
+          label={"Subject Name"}
+          value={formik.values.subjectName}
+          onChange={(e) => {
+            formik.setFieldValue("subjectName", e.target.value);
+          }}
+          error={
+            formik.touched.subjectName && Boolean(formik.errors.subjectName)
+          }
+          helperText={formik.errors.subjectName}
+        />
+        <BasicTextInput
+          label={"Subject Code"}
+          value={formik.values.subjectCode}
+          onChange={(e) => {
+            formik.setFieldValue("subjectCode", e.target.value);
+          }}
+          error={
+            formik.touched.subjectCode && Boolean(formik.errors.subjectCode)
+          }
+          helperText={formik.errors.subjectCode}
+        />
+        <DropDownList
+          title={"Select lecturer"}
+          placeholder={"Select lecturer"}
+          data={lecturer}
+          label="lecturerName"
+          formik={formik}
+          errorMsg="REQUIRED"
+        />
+        {error && <div style={{ color: "red" }}>{error}</div>}
+        <Grid container justifyContent={"flex-end"}>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => formik.handleSubmit()}
+          >
+            Submit
+          </Button>
+        </Grid>
+      </div>
     </div>
   );
 };

@@ -1,9 +1,6 @@
 import {
   FormControl,
-  FormHelperText,
-  Select,
-  Typography,
-  Box,
+  FormHelperText, Grid, Select
 } from "@mui/material";
 import { Fragment } from "react";
 
@@ -33,36 +30,37 @@ const DropDownList = (props) => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        verticalAlign: "center",
-        ...sxOverride,
-      }}
-    >
-      <Typography sx={{ paddingRight: "8px" }} variant="h6">
-        {title}
-      </Typography>
-      <FormControl variant="outlined">
-        <Select
-          native
-          value={formik && formik.values[label]}
-          onChange={formik && formik.handleChange(label)}
-          error={
-            formik && formik.touched[label] && Boolean(formik.errors[label])
-          }
+    <Grid container spacing={1}>
+      <Grid item xs>
+        <span
+          style={{
+            fontSize: "12px",
+            lineHeight: "normal",
+            textAlign: "right",
+          }}
         >
-          <option value="">{placeholder}</option>
-          {renderOptions()}
-        </Select>
-        {formik && formik.touched[label] && Boolean(formik.errors[label]) && (
-          <FormHelperText error={true}>{errorMsg}</FormHelperText>
-        )}
-      </FormControl>
-    </Box>
+          {title}
+        </span>
+      </Grid>
+      <Grid item>
+        <FormControl variant="outlined">
+          <Select
+            native
+            value={formik && formik.values[label]}
+            onChange={formik && formik.handleChange(label)}
+            error={
+              formik && formik.touched[label] && Boolean(formik.errors[label])
+            }
+          >
+            <option value="">{placeholder}</option>
+            {renderOptions()}
+          </Select>
+          {formik && formik.touched[label] && Boolean(formik.errors[label]) && (
+            <FormHelperText error={true}>{errorMsg}</FormHelperText>
+          )}
+        </FormControl>
+      </Grid>
+    </Grid>
   );
 };
 
