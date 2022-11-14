@@ -32,7 +32,7 @@ const Authentication = (props) => {
         );
         localStorage.setItem(ACESS_TOKEN, res.data.access_token);
         setisActive(true);
-        navigate("/");
+        navigate("/attendance");
       } catch (error) {
         console.error(error);
         seterror(error.response.data.message);
@@ -41,7 +41,7 @@ const Authentication = (props) => {
   });
 
   return (
-    <div>
+    <div style={{ marginTop: "12rem", width: "100%", padding: "0px 48px" }}>
       <h1 style={{ lineHeight: 0.7, marginBottom: "24px" }}>
         Login
         <br />

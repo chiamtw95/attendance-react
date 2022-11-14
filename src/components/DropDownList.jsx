@@ -22,9 +22,10 @@ const DropDownList = (props) => {
     return (
       data &&
       data.map((item, index) => {
+        const { value, label } = item || {};
         return (
           <Fragment key={index}>
-            <option value={item}>{item}</option>
+            <option value={value ?? item}>{label ?? item}</option>
           </Fragment>
         );
       })

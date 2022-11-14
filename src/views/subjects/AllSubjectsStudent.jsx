@@ -33,7 +33,6 @@ const AllSubjectsStudent = () => {
   }, []);
 
   const isCurrentlyEnrolled = (data) => {
-    console.log("data", data, studentName);
     return data.name === studentName;
   };
 
@@ -43,7 +42,7 @@ const AllSubjectsStudent = () => {
       `http://${process.env.REACT_APP_SERVER_IP}:3000/subject`,
       params
     );
-    console.log(res);
+
     fetchSubjects();
   };
   return (

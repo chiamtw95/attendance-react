@@ -30,7 +30,6 @@ const SessionsList = () => {
         params: { id },
       })
       .then((res) => {
-        console.log(res.data);
         setsubjectName(res.data.subjectName);
         setsubjectCode(res.data.subjectCode);
         setsessions(res.data.sessions);

@@ -63,7 +63,7 @@ const Register = (props) => {
   });
 
   return (
-    <div>
+    <div style={{ marginTop: "12rem", width: "100%", padding: "0px 48px" }}>
       <NotificationContainer />
       <h1 style={{ marginBottom: "24px" }}>
         {as === "ADMIN" ? "Lecturer" : "Student"} Account Registration

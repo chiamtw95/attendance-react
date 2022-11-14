@@ -54,7 +54,7 @@ const StudentCheckInPage = () => {
         }}
       >
         <BasicTextInput
-          label={"Check in code: "}
+          label={"Code: "}
           value={formik.values.checkInCode}
           type="number"
           onChange={(e) => {

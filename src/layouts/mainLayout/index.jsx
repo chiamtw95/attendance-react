@@ -17,13 +17,21 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { sideMenuItems } from "../../constant/sideMenu";
+import {
+  sideMenuItemsAdmin,
+  sideMenuItemsStudent,
+} from "../../constant/sideMenu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { ACESS_TOKEN } from "../../constant/token";
+import jwtDecode from "jwt-decode";
 const drawerWidth = 240;
 
 const DrawerContent = () => {
   const navigate = useNavigate();
+  const token = localStorage?.getItem(ACESS_TOKEN);
+  const role = jwtDecode(token)?.role;
+  const sideMenuItems =
+    role === "ADMIN" ? sideMenuItemsAdmin : sideMenuItemsStudent;
   return (
     <div>
       <Toolbar />
@@ -49,6 +57,7 @@ const DrawerContent = () => {
 const MainLayout = (props) => {
   const { window, setisActive } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -73,7 +82,10 @@ const MainLayout = (props) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{
+              mr: 2,
+              display: { sm: "none" },
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -87,13 +99,14 @@ const MainLayout = (props) => {
               color: "#FFFFFF",
               position: "absolute",
               right: 16,
-              top: 24,
+              top: 16,
               cursor: "pointer",
               "&:hover": { opacity: 0.8 },
             }}
-            onClick={() => {
-              localStorage.removeItem(ACESS_TOKEN);
+            onClick={async () => {
+              await localStorage.removeItem(ACESS_TOKEN);
               setisActive(false);
+              navigate("/");
             }}
           />
         </Toolbar>

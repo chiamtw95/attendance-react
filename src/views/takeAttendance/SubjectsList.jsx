@@ -57,7 +57,8 @@ const SubjectList = () => {
                 <TableCell align="right">
                   <Button
                     variant="contained"
-                    onClick={() => navigate(`/attendance/sessions/${x.id}`)}
+                    // onClick={() => navigate(`/attendance/sessions/${x.id}`)}
+                    onClick={() => navigate(`sessions/${x.id}`)}
                   >
                     Take Attendance
                   </Button>

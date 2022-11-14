@@ -5,10 +5,8 @@ import { ACESS_TOKEN } from "../constant/token";
 import MainLayout from "../layouts/mainLayout";
 import Authentication from "../views/auth/Authentication";
 import Register from "../views/auth/Register";
-import Dashboard from "../views/dashboard";
 import ProfilePage from "../views/profile";
-import AddFace from "../views/profile/AddFace";
-import ChangePassword from "../views/profile/ChangePassword";
+import GenerateReport from "../views/reports";
 import AllSubjectLecturer from "../views/subjects/AllSubjectLecturer";
 import AllSubjectsStudent from "../views/subjects/AllSubjectsStudent";
 import CreateSubject from "../views/subjects/CreateSubject";
@@ -116,10 +114,9 @@ const AppRoutes = () => {
             )
           }
         >
-          <Route path="/" element={<Dashboard />} />
           <Route path="/attendance/*" element={<AttendanceRoutes />} />
           <Route path="subjects/*" element={<SubjectRoutes />} />
-          <Route path="/reports" element={<></>} />
+          <Route path="/reports" element={<GenerateReport />} />
           <Route path="/account" element={<ProfilePage />} />
         </Route>
 

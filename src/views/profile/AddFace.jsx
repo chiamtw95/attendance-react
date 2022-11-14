@@ -34,7 +34,7 @@ const AddFace = () => {
         },
       };
       setisUploading(true);
-      const response = await axios.patch(
+      const response = await axios.post(
         `http://${process.env.REACT_APP_SERVER_IP}:8000/api/v1/recognition/faces`,
         formData,
         config
@@ -42,7 +42,7 @@ const AddFace = () => {
       if (response.data.image_id)
         NotificationManager.success("Successfully uploaded image");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setisUploading(false);
     }
@@ -61,7 +61,7 @@ const AddFace = () => {
           margin: "auto",
           border: "1px solid #C3C3C3",
           borderRadius: "8px",
-          padding: "24px 24px 16px 24px",
+          padding: "16px 16px",
           width: "fit-content",
         }}
       >
@@ -69,8 +69,8 @@ const AddFace = () => {
 
         <input
           type="file"
+          accept=".JPEG,.PNG,.JPG,.ICO,.BMP,.GIF,.TIF,.TIFF"
           onChange={(e) => {
-            console.log(e.target.files[0]);
             setimageFile(e.target.files[0]);
           }}
         />

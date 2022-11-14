@@ -15,6 +15,14 @@ const CodeAttendanceList = () => {
   const [notCheckedIn, setNotCheckedIn] = useState([]);
   const [checkinCode, setCheckInCode] = useState("");
 
+  const fetchAttendance = async () => {
+    const res = await axios.get(
+      `http://${process.env.REACT_APP_SERVER_IP}:3000/attendance/checkincode/studentList`,
+      { params: { sessionId: sessionId } }
+    );
+    setNotCheckedIn(res.data.notCheckedIn);
+    setCheckedIn(res.data.checkedIn);
+  };
   useEffect(() => {
     const fetchCheckinCode = async () => {
       const res = await axios.get(
@@ -23,21 +31,23 @@ const CodeAttendanceList = () => {
       );
       setCheckInCode(res.data.sessionCode);
     };
-    const fetchAttendance = async () => {
-      const res = await axios.get(
-        `http://${process.env.REACT_APP_SERVER_IP}:3000/attendance/checkincode/studentList`,
-        { params: { sessionId: sessionId } }
-      );
-      setNotCheckedIn(res.data.notCheckedIn);
-      setCheckedIn(res.data.checkedIn);
-    };
+
     fetchAttendance();
     fetchCheckinCode();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      fetchAttendance();
+    }, 3000);
+  });
+
   return (
     <>
-      <h1>Check in code: {checkinCode}</h1>
+      <p style={{ fontSize: "24px", verticalAlign: "center" }}>
+        <span style={{ fontSize: "16px" }}>Check in code:&nbsp;</span>
+        <b>{checkinCode}</b>
+      </p>
       <div style={{ display: "flex" }}>
         <Table
           sx={{ width: "50%", height: "min-content" }}

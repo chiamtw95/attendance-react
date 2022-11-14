@@ -46,7 +46,6 @@ const CreateSubject = () => {
           setError(null);
         }
       } catch (error) {
-        console.log("hahah;", error);
         if (error.response) {
           setError(error.response.data.message);
           console.error(error.response.status);

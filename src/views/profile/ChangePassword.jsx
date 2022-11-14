@@ -13,46 +13,55 @@ const ChangePassword = () => {
   const [id, setId] = useState("");
   const [isAdmin, setIsAdmin] = useState(null);
   const [message, setMessage] = useState("");
+  const [errmsg, seterrmsg] = useState("");
   const token = localStorage.getItem("access_token");
 
   const validationSchema = yup.object({
-    pw: yup
+    pw: yup.string().required("REQUIRED"),
+    newpw: yup
       .string()
       .required("REQUIRED")
       .oneOf([yup.ref("repeatpw"), null], "Passwords do not match!"),
     repeatpw: yup
       .string()
       .required("REQUIRED")
-      .oneOf([yup.ref("pw"), null], "Passwords do not match!"),
+      .oneOf([yup.ref("newpw"), null], "Passwords do not match!"),
   });
   const formik = useFormik({
     initialValues: {
       pw: "",
+      newpw: "",
       repeatpw: "",
     },
     validationSchema,
     validateOnBlur: true,
     onSubmit: async (values) => {
+      setMessage("");
+      seterrmsg("");
       let res;
-      if (isAdmin) {
-        res = await axios.patch(
-          `http://${process.env.REACT_APP_SERVER_IP}:3000/lecturer/passwordchange`,
-          { ...values, id }
-        );
-      } else {
-        res = await axios.patch(
-          `http://${process.env.REACT_APP_SERVER_IP}:3000/student/passwordchange`,
-          { ...values, id }
-        );
+      try {
+        if (isAdmin) {
+          res = await axios.post(
+            `http://${process.env.REACT_APP_SERVER_IP}:3000/lecturer/passwordchange`,
+            { ...values, id }
+          );
+        } else {
+          res = await axios.post(
+            `http://${process.env.REACT_APP_SERVER_IP}:3000/student/passwordchange`,
+            { ...values, id }
+          );
+        }
+        setMessage(res.data.message);
+        formik.resetForm();
+      } catch (err) {
+        console.error("err");
+        seterrmsg(err.response.data.message);
       }
-      setMessage(res.data.message);
-      formik.resetForm();
     },
   });
 
   useEffect(() => {
     const res = jwt_decode(token);
-    console.log("ress", res);
     setName(res.name);
     setEmail(res.email);
     setId(res.sub);
@@ -71,7 +80,7 @@ const ChangePassword = () => {
           margin: "auto",
           border: "1px solid #C3C3C3",
           borderRadius: "8px",
-          padding: "24px 48px 16px 24px",
+          padding: "16px 16px",
           width: "fit-content",
         }}
       >
@@ -79,7 +88,7 @@ const ChangePassword = () => {
         <BasicTextInput label={"Email"} disabled value={email} />
         <BasicTextInput
           type="password"
-          label={"New password"}
+          label={"Current password"}
           value={formik.values.pw}
           onChange={(e) => {
             formik.setFieldValue("pw", e.target.value);
@@ -87,7 +96,16 @@ const ChangePassword = () => {
           error={formik.touched.pw && Boolean(formik.errors.pw)}
           helperText={formik.errors.pw}
         />
-
+        <BasicTextInput
+          type="password"
+          label={"New password"}
+          value={formik.values.newpw}
+          onChange={(e) => {
+            formik.setFieldValue("newpw", e.target.value);
+          }}
+          error={formik.touched.newpw && Boolean(formik.errors.newpw)}
+          helperText={formik.errors.newpw}
+        />
         <BasicTextInput
           type="password"
           label={"Repeat new password"}
@@ -102,6 +120,7 @@ const ChangePassword = () => {
         <Button variant="contained" onClick={formik.handleSubmit}>
           Submit
         </Button>
+        <h6 style={{ color: "red" }}>{errmsg}</h6>
         <h6 style={{ color: "green" }}>{message}</h6>
       </div>
     </div>

@@ -1,22 +1,18 @@
 import { CompreFace } from "@exadel/compreface-js-sdk";
-import React, { useEffect, useRef, useState } from "react";
 import {
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  IconButton,
-  Button,
 } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
-import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
-import { isEmptyArray } from "../../helpers/array";
 
 const AttendeesList = (props) => {
   const { dataSrc } = props || {};
@@ -70,7 +66,6 @@ const FacialRecognition = (props) => {
   );
   useEffect(() => {
     socket.on("findAllAttendance", (data) => {
-      console.log("findall", data);
       setAttendees(data);
     });
     socket.on("error", (data) => {
@@ -80,7 +75,6 @@ const FacialRecognition = (props) => {
         NotificationManager.info(data?.infoMessage, "", 2000, () => {});
     });
     socket.on("newAttendance", (data) => {
-      console.log("newattendance", data);
       setAttendees((prev) => {
         const prevLength = prev?.length;
         if (prevLength === data?.length) return prev;
