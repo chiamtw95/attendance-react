@@ -44,8 +44,8 @@ const CodeAttendanceList = () => {
 
   return (
     <>
-      <p style={{ fontSize: "24px", verticalAlign: "center" }}>
-        <span style={{ fontSize: "16px" }}>Check in code:&nbsp;</span>
+      <p style={{ fontSize: "1.5rem", verticalAlign: "center" }}>
+        <span style={{ fontSize: "1rem" }}>Check in code:&nbsp;</span>
         <b>{checkinCode}</b>
       </p>
       <div style={{ display: "flex" }}>

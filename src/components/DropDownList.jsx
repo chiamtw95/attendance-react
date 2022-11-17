@@ -1,7 +1,4 @@
-import {
-  FormControl,
-  FormHelperText, Grid, Select
-} from "@mui/material";
+import { FormControl, FormHelperText, Grid, Select } from "@mui/material";
 import { Fragment } from "react";
 
 const DropDownList = (props) => {
@@ -34,7 +31,7 @@ const DropDownList = (props) => {
       <Grid item xs>
         <span
           style={{
-            fontSize: "12px",
+            fontSize: "0.75rem",
             lineHeight: "normal",
             textAlign: "right",
           }}

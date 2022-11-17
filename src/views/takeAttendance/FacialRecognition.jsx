@@ -59,7 +59,7 @@ const FacialRecognition = (props) => {
 
   const core = new CompreFace(
     `http://${process.env.REACT_APP_SERVER_IP}`,
-    process.env.REACT_APP_SERVER_PORT
+    process.env.REACT_APP_COMPREFACE_SERVER_PORT
   );
   const recognitionService = core.initFaceRecognitionService(
     process.env.REACT_APP_COMPPREFACE_RECOGNITION_KEY
@@ -145,7 +145,17 @@ const FacialRecognition = (props) => {
       <NotificationContainer />
       <div className="TakeAttendanceFace">
         <div className="videoWrapper">
-          <video ref={videoRef} autoPlay muted></video>
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            style={{
+              border: "1px solid black",
+              borderRadius: "0.5rem",
+              height: 480,
+              width: 640,
+            }}
+          ></video>
           <canvas
             ref={canvas1}
             width="640"
@@ -155,7 +165,7 @@ const FacialRecognition = (props) => {
           ></canvas>
           <div>
             <button onClick={() => startCam()}>Start taking attendance</button>
-            <button red={stopRef} onClick={() => closeCam()}>
+            <button ref={stopRef} onClick={() => closeCam()}>
               stop
             </button>
           </div>

@@ -21,15 +21,6 @@ const GenerateReport = () => {
   const [subjectCode, setSubjectCode] = React.useState(null);
   const [subjectDropdownData, setsubjectDropdownData] = useState([]);
   const [subjectData, setSubjectData] = useState(null);
-  /*
-SUBJECT CODE
-SUBJECT NAME
-
-LECTURER
-DATE
-
-STUDENT NAME ----- TIME CHECKED-IN
-*/
 
   const fetchSubjects = async () => {
     axios
@@ -87,8 +78,6 @@ STUDENT NAME ----- TIME CHECKED-IN
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <h1>Generate Report</h1>
-
-      {/* <CSVLink data={[]}>Generate Report</CSVLink> */}
 
       <FormControl variant="outlined">
         <Select
@@ -150,7 +139,7 @@ const RenderRows = (props) => {
                   display: "flex",
                   alignItem: "center",
                   width: "100%",
-                  marginTop: "64px",
+                  marginTop: "4rem",
                 }}
               >
                 <Typography variant="h5" style={{ textAlign: "left" }}>
@@ -163,7 +152,7 @@ const RenderRows = (props) => {
                     minute: "numeric",
                   })}
                 </Typography>
-                <Button variant="contained" style={{ marginLeft: "16px" }}>
+                <Button variant="contained" style={{ marginLeft: "1rem" }}>
                   <CSVLink
                     data={csvData(x.student)}
                     headers={headers}
@@ -172,7 +161,7 @@ const RenderRows = (props) => {
                     style={{
                       color: "white",
                       textDecoration: "none",
-                      paddingTop: "10px",
+                      paddingTop: "0.62rem",
                     }}
                   >
                     Download CSV Report
@@ -184,7 +173,7 @@ const RenderRows = (props) => {
                 sx={{
                   width: "100%",
                   height: "min-content",
-                  marginBottom: "64px",
+                  marginBottom: "4rem",
                 }}
                 aria-label="simple table"
               >
@@ -215,7 +204,7 @@ const RenderRows = (props) => {
                 sx={{
                   width: "100%",
                   height: "min-content",
-                  marginBottom: "64px",
+                  marginBottom: "4rem",
                 }}
                 aria-label="simple table"
               >

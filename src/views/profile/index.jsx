@@ -14,7 +14,7 @@ const ProfilePage = () => {
       }}
     >
       <ProtectedRoute restrictedTo="USER">
-        <Grid container>
+        <Grid container justifyContent={"center"}>
           <Grid item sm={12} md={6}>
             <ChangePassword />
           </Grid>

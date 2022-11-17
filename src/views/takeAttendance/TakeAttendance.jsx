@@ -32,7 +32,7 @@ const TakeAttendance = () => {
         flexDirection: "column",
         justifyContent: "center",
         width: "100%",
-        padding: "0px 88px",
+        padding: "0rem 5.5rem",
       }}
     >
       <h1>

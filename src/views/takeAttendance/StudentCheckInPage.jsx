@@ -48,8 +48,8 @@ const StudentCheckInPage = () => {
           alignItems: "flex-end",
           margin: "auto",
           border: "1px solid #C3C3C3",
-          borderRadius: "8px",
-          padding: "24px 48px 16px 24px",
+          borderRadius: "0.5rem",
+          padding: "1.5rem 3rem 1rem 1.5rem",
           width: "fit-content",
         }}
       >

@@ -44,7 +44,7 @@ const DrawerContent = () => {
             onClick={() => navigate(item.link)}
           >
             <ListItemButton>
-              <SvgIcon component={item.icon} sx={{ marginRight: "8px" }} />
+              <SvgIcon component={item.icon} sx={{ marginRight: "0.75rem" }} />
               <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>

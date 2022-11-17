@@ -63,9 +63,9 @@ const Register = (props) => {
   });
 
   return (
-    <div style={{ marginTop: "12rem", width: "100%", padding: "0px 48px" }}>
+    <div style={{ marginTop: "12rem", width: "100%", padding: "0px auto" }}>
       <NotificationContainer />
-      <h1 style={{ marginBottom: "24px" }}>
+      <h1 style={{ marginBottom: "1.5rem" }}>
         {as === "ADMIN" ? "Lecturer" : "Student"} Account Registration
         <br />
       </h1>
@@ -83,7 +83,7 @@ const Register = (props) => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "flex-end",
-            paddingRight: "64px",
+            paddingRight: "4rem",
           }}
         >
           <BasicTextInput
@@ -137,7 +137,7 @@ const Register = (props) => {
           >
             Submit
           </Button>
-          <Link to="/" style={{ marginTop: "24px" }}>
+          <Link to="/" style={{ marginTop: "1.5rem" }}>
             Back to login page
           </Link>
         </div>

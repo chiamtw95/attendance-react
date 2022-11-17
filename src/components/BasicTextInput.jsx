@@ -23,7 +23,7 @@ const BasicTextInput = (props) => {
       <Grid item xs>
         <span
           style={{
-            fontSize: "12px",
+            fontSize: "0.75rem",
             lineHeight: "normal",
             textAlign: "right",
           }}

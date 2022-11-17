@@ -60,8 +60,8 @@ const AddFace = () => {
           alignItems: "flex-start",
           margin: "auto",
           border: "1px solid #C3C3C3",
-          borderRadius: "8px",
-          padding: "16px 16px",
+          borderRadius: "0.5rem",
+          padding: "1rem 1rem",
           width: "fit-content",
         }}
       >
@@ -85,7 +85,7 @@ const AddFace = () => {
                 size="1rem"
                 fontSize="inherit"
                 disableShrink
-                style={{ marginTop: "13px" }}
+                style={{ marginTop: "0.8rem" }}
               />
             )
           }

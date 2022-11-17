@@ -14,6 +14,6 @@ export const sideMenuItemsAdmin = [
 
 export const sideMenuItemsStudent = [
   { text: "Mark Attendance", link: "/attendance", icon: FactCheckIcon },
-  { text: "My Account", link: "/account", icon: SettingsIcon },
   { text: "Subjects", link: "/subjects", icon: MenuBookIcon },
+  { text: "My Account", link: "/account", icon: SettingsIcon },
 ];

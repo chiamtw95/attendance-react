@@ -41,8 +41,8 @@ const Authentication = (props) => {
   });
 
   return (
-    <div style={{ marginTop: "12rem", width: "100%", padding: "0px 48px" }}>
-      <h1 style={{ lineHeight: 0.7, marginBottom: "24px" }}>
+    <div style={{ marginTop: "12rem", width: "100%", padding: "0px auto" }}>
+      <h1 style={{ lineHeight: 0.7, marginBottom: "1.5rem" }}>
         Login
         <br />
         <>
