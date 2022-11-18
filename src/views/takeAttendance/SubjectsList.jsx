@@ -35,7 +35,7 @@ const SubjectList = () => {
   return (
     <div>
       <h1>Mark Attendance</h1>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{}} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell align="right">Subject Code</TableCell>
@@ -60,7 +60,7 @@ const SubjectList = () => {
                     // onClick={() => navigate(`/attendance/sessions/${x.id}`)}
                     onClick={() => navigate(`sessions/${x.id}`)}
                   >
-                    Take Attendance
+                    Select
                   </Button>
                 </TableCell>
               </TableRow>

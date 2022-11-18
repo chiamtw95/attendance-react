@@ -14,11 +14,16 @@ const ProfilePage = () => {
       }}
     >
       <ProtectedRoute restrictedTo="USER">
-        <Grid container justifyContent={"center"}>
-          <Grid item sm={12} md={6}>
+        <Grid
+          container
+          spacing={2}
+          alignItems={"flex-start"}
+          justifyContent={"center"}
+        >
+          <Grid item sm={12} md={4}>
             <ChangePassword />
           </Grid>
-          <Grid item sm={12} md={6}>
+          <Grid item sm={12} md={2}>
             <AddFace />
           </Grid>
         </Grid>

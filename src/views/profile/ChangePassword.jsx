@@ -80,8 +80,8 @@ const ChangePassword = () => {
           margin: "auto",
           border: "1px solid #C3C3C3",
           borderRadius: "0.5rem",
-          padding: "1rem 1rem",
-          width: "fit-content",
+          padding: "2rem 2rem",
+          // width: "fit-content",
         }}
       >
         <BasicTextInput label={"Name"} disabled value={name} />
