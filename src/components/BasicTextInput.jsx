@@ -19,25 +19,13 @@ const BasicTextInput = (props) => {
   } = props || {};
 
   return (
-    <Grid container spacing={1}>
+    <Grid container>
       <Grid item xs>
-        <span
-          style={{
-            fontSize: "0.75rem",
-            lineHeight: "normal",
-            textAlign: "right",
-          }}
-        >
-          {label}
-        </span>
-      </Grid>
-      <Grid item>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            width: "100%",
           }}
         >
           <TextField
@@ -45,6 +33,7 @@ const BasicTextInput = (props) => {
             size="small"
             variant="outlined"
             value={value}
+            label={label}
             onChange={onChange}
           />
           {showHelperText && <FormHelperText>{helperText}</FormHelperText>}

@@ -41,7 +41,7 @@ const Authentication = (props) => {
   });
 
   return (
-    <div style={{ marginTop: "12rem", width: "100%", padding: "0px auto" }}>
+    <div style={{ marginTop: "8rem", width: "100%", padding: "auto auto" }}>
       <h1 style={{ lineHeight: 0.7, marginBottom: "1.5rem" }}>
         Login
         <br />
@@ -65,6 +65,7 @@ const Authentication = (props) => {
         <div
           style={{
             display: "flex",
+            width: "fit-content",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "flex-end",
