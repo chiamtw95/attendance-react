@@ -1,7 +1,6 @@
 FROM node:alpine
-WORKDIR /app
-COPY package.json ./
-COPY ./ ./
-RUN yarn
+WORKDIR /reactapp
+COPY . .
+RUN npm run build
 EXPOSE 3001
-CMD ["yarn", "start"]
+CMD [ "npm", "run", "start:prod" ]
